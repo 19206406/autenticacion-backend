@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Repository;
 import com.udea.tecnica.authentication_backend.model.User;
 
-/** Almacenamiento en memoria: los usuarios se pierden al reiniciar la aplicación. */
 @Repository
 public class InMemoryUserRepository implements UserRepository {
     private final Map<String, User> usersByEmail = new ConcurrentHashMap<>();

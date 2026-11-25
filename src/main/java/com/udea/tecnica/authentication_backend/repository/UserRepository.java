@@ -12,10 +12,5 @@ public interface UserRepository {
 
     List<User> findAll();
 
-    /**
-     * Guarda el usuario asignándole un id.
-     *
-     * @return el usuario guardado, o {@link Optional#empty()} si el correo ya existe.
-     */
     Optional<User> saveIfNotExists(User user);
 }

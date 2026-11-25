@@ -9,6 +9,5 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface AuthenticationService {
     UserResponse register(RegisterRequest request);
 
-    /** Valida las credenciales y crea la sesión HTTP del usuario. */
     UserResponse login(LoginRequest credentials, HttpServletRequest request, HttpServletResponse response);
 }

@@ -75,7 +75,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private void startSession(Authentication authenticated,
             HttpServletRequest request, HttpServletResponse response) {
-        // Se rota el id de sesión para mitigar ataques de fijación de sesión.
         if (request.getSession(false) != null) {
             request.changeSessionId();
         }

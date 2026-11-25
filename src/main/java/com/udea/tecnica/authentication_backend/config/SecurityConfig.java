@@ -87,7 +87,6 @@ public class SecurityConfig {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setHeader("Cache-Control", "no-store");
-        // The messages in this method are constants controlled by the application.
         response.getWriter().write("{\"status\":" + code
                 + ",\"message\":\"" + message + "\",\"date\":\""
                 + LocalDateTime.now() + "\"}");

@@ -13,7 +13,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    /** Devuelve una copia del usuario con el identificador asignado por el repositorio. */
     public User withId(Long newId) {
         return new User(newId, fullName, email, passwordHash);
     }
