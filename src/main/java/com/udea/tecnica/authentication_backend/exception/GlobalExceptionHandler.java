@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> userNotFound(UserNotFoundException ex) {
-        return respond(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        return respond(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(AuthenticationException.class)
@@ -43,6 +44,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> invalidJson(HttpMessageNotReadableException ex) {
         return respond(HttpStatus.BAD_REQUEST, "El JSON enviado no es válido");
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> invalidParameter(MethodArgumentTypeMismatchException ex) {
+        return respond(HttpStatus.BAD_REQUEST, "El parámetro '" + ex.getName() + "' no es válido");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

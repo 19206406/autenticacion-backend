@@ -6,11 +6,16 @@ public class User {
     private final String email;
     private final String passwordHash;
 
-    public User(String email, Long id, String fullName, String passwordHash) {
-        this.email = email;
+    public User(Long id, String fullName, String email, String passwordHash) {
         this.id = id;
         this.fullName = fullName;
+        this.email = email;
         this.passwordHash = passwordHash;
+    }
+
+    /** Devuelve una copia del usuario con el identificador asignado por el repositorio. */
+    public User withId(Long newId) {
+        return new User(newId, fullName, email, passwordHash);
     }
 
     public Long getId() {
@@ -28,7 +33,4 @@ public class User {
     public String getPasswordHash() {
         return passwordHash;
     }
-
-
-
 }

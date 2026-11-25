@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,12 +50,11 @@ public class SecurityConfig {
 
         http
             .cors(cors -> cors.configurationSource(origins))
-            .csrf(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable)
             .securityContext(context -> context.securityContextRepository(contextRepository))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/auth/csrf").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
                 .anyRequest().authenticated()
             )
@@ -77,7 +75,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint((req, res, error) ->
                     writeError(res, 401, "Debes iniciar sesión"))
                 .accessDeniedHandler((req, res, error) ->
-                    writeError(res, 403, "Acceso denegado o token CSRF inválido"))
+                    writeError(res, 403, "Acceso denegado"))
             );
 
         return http.build();

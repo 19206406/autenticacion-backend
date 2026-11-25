@@ -1,12 +1,12 @@
 package com.udea.tecnica.authentication_backend.security;
 
-import java.util.Locale;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.udea.tecnica.authentication_backend.repository.UserRepository;
+import com.udea.tecnica.authentication_backend.util.EmailNormalizer;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        String normalized = email.strip().toLowerCase(Locale.ROOT);
+        String normalized = EmailNormalizer.normalize(email);
         return repository.findByEmail(normalized)
                 .map(user -> User.withUsername(user.getEmail())
                         .password(user.getPasswordHash())

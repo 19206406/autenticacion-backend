@@ -27,7 +27,7 @@ public class CorsConfig {
         configuration.setAllowedMethods(Arrays.asList(
                 HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.OPTIONS.name()));
         configuration.setAllowedHeaders(Arrays.asList(
-                HttpHeaders.CONTENT_TYPE, "X-CSRF-TOKEN", "X-XSRF-TOKEN"));
+                HttpHeaders.CONTENT_TYPE));
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
