@@ -15,8 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(
-            @Value("${app.cors.allowed-origins:http://localhost:5500,http://127.0.0.1:5500}")
-            String allowedOrigins) {
+            @Value("${app.cors.allowed-origins:http://localhost:5500,http://127.0.0.1:5500}") String allowedOrigins) {
 
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))

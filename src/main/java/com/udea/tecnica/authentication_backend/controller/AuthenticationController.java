@@ -10,7 +10,7 @@ import com.udea.tecnica.authentication_backend.dto.AuthResponse;
 import com.udea.tecnica.authentication_backend.dto.LoginRequest;
 import com.udea.tecnica.authentication_backend.dto.RegisterRequest;
 import com.udea.tecnica.authentication_backend.dto.UserResponse;
-import com.udea.tecnica.authentication_backend.service.AuthenticationService;
+import com.udea.tecnica.authentication_backend.service.IAuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,9 +21,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/auth")
 @Tag(name = "Autenticación", description = "Registro, login y logout (POST /api/auth/logout)")
 public class AuthenticationController {
-    private final AuthenticationService service;
+    private final IAuthenticationService service;
 
-    public AuthenticationController(AuthenticationService service) {
+    public AuthenticationController(IAuthenticationService service) {
         this.service = service;
     }
 

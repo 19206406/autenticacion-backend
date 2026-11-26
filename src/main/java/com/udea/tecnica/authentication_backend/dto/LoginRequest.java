@@ -5,9 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Credenciales de inicio de sesión")
 public record LoginRequest(
-    @NotBlank(message = "El correo es obligatorio")
-    @Schema(example = "ana@correo.com") String email,
+        @NotBlank(message = "El correo es obligatorio") @Schema(example = "ana@correo.com") String email,
 
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Schema(example = "Clave123", accessMode = Schema.AccessMode.WRITE_ONLY) String password
-) {}
+        @NotBlank(message = "La contraseña es obligatoria") @Schema(example = "Clave123", accessMode = Schema.AccessMode.WRITE_ONLY) String password) {
+}

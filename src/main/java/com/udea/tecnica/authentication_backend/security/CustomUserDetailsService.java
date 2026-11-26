@@ -5,14 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.udea.tecnica.authentication_backend.repository.UserRepository;
+import com.udea.tecnica.authentication_backend.repository.IUserRepository;
 import com.udea.tecnica.authentication_backend.util.EmailNormalizer;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository repository;
+    private final IUserRepository repository;
 
-    public CustomUserDetailsService(UserRepository repository) {
+    public CustomUserDetailsService(IUserRepository repository) {
         this.repository = repository;
     }
 

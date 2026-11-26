@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.udea.tecnica.authentication_backend.dto.UserResponse;
-import com.udea.tecnica.authentication_backend.service.UserService;
+import com.udea.tecnica.authentication_backend.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -14,9 +14,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/users")
 @Tag(name = "Usuarios", description = "Consulta de usuarios registrados; requiere sesión activa")
 public class UserController {
-    private final UserService service;
+    private final IUserService service;
 
-    public UserController(UserService service) {
+    public UserController(IUserService service) {
         this.service = service;
     }
 

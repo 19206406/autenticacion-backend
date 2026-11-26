@@ -49,34 +49,29 @@ public class SecurityConfig {
             @Qualifier("corsConfigurationSource") CorsConfigurationSource origins) throws Exception {
 
         http
-            .cors(cors -> cors.configurationSource(origins))
-            .csrf(AbstractHttpConfigurer::disable)
-            .securityContext(context -> context.securityContextRepository(contextRepository))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(AbstractHttpConfigurer::disable)
-            .httpBasic(AbstractHttpConfigurer::disable)
-            .logout(logout -> logout
-                .logoutUrl("/api/auth/logout")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler((request, response, auth) -> {
-                    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-                    response.setHeader("Cache-Control", "no-store");
-                })
-                .permitAll()
-            )
-            .exceptionHandling(errors -> errors
-                .authenticationEntryPoint((req, res, error) ->
-                    writeError(res, 401, "Debes iniciar sesión"))
-                .accessDeniedHandler((req, res, error) ->
-                    writeError(res, 403, "Acceso denegado"))
-            );
+                .cors(cors -> cors.configurationSource(origins))
+                .csrf(AbstractHttpConfigurer::disable)
+                .securityContext(context -> context.securityContextRepository(contextRepository))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .logout(logout -> logout
+                        .logoutUrl("/api/auth/logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler((request, response, auth) -> {
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                            response.setHeader("Cache-Control", "no-store");
+                        })
+                        .permitAll())
+                .exceptionHandling(errors -> errors
+                        .authenticationEntryPoint((req, res, error) -> writeError(res, 401, "Debes iniciar sesión"))
+                        .accessDeniedHandler((req, res, error) -> writeError(res, 403, "Acceso denegado")));
 
         return http.build();
     }
